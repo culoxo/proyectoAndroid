@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ProyectoERP" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
+        <item name="colorPrimary">@color/blue</item>
+
+    </style>
+
+    <style name="Theme.ProyectoERP" parent="Base.Theme.ProyectoERP" />
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ProyectoERP"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".activities.RegistroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.RecuperarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Factura.DetailFacturaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Factura.EditFacturaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Factura.FacturaMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Usuario.DetailUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Usuario.EditUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Usuario.UsuarioMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Usuario.CreateUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Servicio.EditServicioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Servicio.CreateServicioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Servicio.ServicioMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Servicio.DetailServicioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Cliente.ClienteMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Cliente.EditClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Cliente.CreateClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Cliente.DetailClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
