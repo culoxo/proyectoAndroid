@@ -49,7 +49,7 @@ public class UsuarioAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.clientes_list, parent, false);
         }
         nameText = view.findViewById(R.id.nameText);
-        nameText.setText(usuarios.get(position).getName());
+        nameText.setText(usuarios.get(position).getUsername());
 
         viewButton = view.findViewById(R.id.viewButton);
         viewButton.setOnClickListener(new View.OnClickListener() {

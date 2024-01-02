@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
+import com.example.proyectoerp.activities.MenuActivity;
 import com.example.proyectoerp.adapters.ServicioAdapter;
 import com.example.proyectoerp.model.Servicio;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,7 @@ public class ServicioMainActivity extends AppCompatActivity {
     CRUDInterface crudInterface;
     ListView listView;
     FloatingActionButton createButton;
+    FloatingActionButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,15 @@ public class ServicioMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_servicio_main);
         listView = findViewById(R.id.listView);
         createButton = findViewById(R.id.createButton);
+        backButton = findViewById(R.id.volverMenuButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callVolver();
+            }
+
+
+        });
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +88,8 @@ public class ServicioMainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
-
+    private void callVolver() {
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
+import com.example.proyectoerp.activities.MenuActivity;
 import com.example.proyectoerp.adapters.ClientesAdapter;
 import com.example.proyectoerp.model.Cliente;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +30,7 @@ public class ClienteMainActivity extends AppCompatActivity {
     CRUDInterface crudInterface;
     ListView listView;
     FloatingActionButton createButton;
+    FloatingActionButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,15 @@ public class ClienteMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cliente_main);
         listView = findViewById(R.id.listView);
         createButton = findViewById(R.id.createButton);
+        backButton = findViewById(R.id.volverMenuButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callVolver();
+            }
+
+
+        });
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,5 +90,9 @@ public class ClienteMainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), CreateClienteActivity.class);
         startActivity(intent);
 
+    }
+    private void callVolver() {
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
     }
 }

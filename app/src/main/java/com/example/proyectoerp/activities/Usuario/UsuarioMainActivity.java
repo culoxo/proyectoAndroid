@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
+import com.example.proyectoerp.activities.MenuActivity;
 import com.example.proyectoerp.adapters.UsuarioAdapter;
 import com.example.proyectoerp.model.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,13 +26,22 @@ public class UsuarioMainActivity extends AppCompatActivity {
     CRUDInterface crudInterface;
     ListView listView;
     FloatingActionButton createButton;
-
+    FloatingActionButton backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_main);
         listView = findViewById(R.id.listView);
         createButton = findViewById(R.id.createButton);
+        backButton = findViewById(R.id.volverMenuButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callVolver();
+            }
+
+
+        });
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +84,9 @@ public class UsuarioMainActivity extends AppCompatActivity {
     private void callCreate() {
         Intent intent = new Intent(getApplicationContext(), CreateUsuarioActivity.class);
         startActivity(intent);
-
+    }
+    private void callVolver() {
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
     }
 }

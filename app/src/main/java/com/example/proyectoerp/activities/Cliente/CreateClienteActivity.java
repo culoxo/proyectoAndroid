@@ -27,7 +27,7 @@ public class CreateClienteActivity extends AppCompatActivity {
     EditText direccionText;
     EditText emailText;
     EditText telefono;
-    Button createButton;
+    Button createButton, volverButton;
     CRUDInterface crudInterface;
     CheckBox activoBox;
 
@@ -43,6 +43,13 @@ public class CreateClienteActivity extends AppCompatActivity {
         telefono = findViewById(R.id.telefono);
         activoBox = findViewById(R.id.activoBox);
         createButton = findViewById(R.id.createButton);
+        volverButton = findViewById(R.id.volverButton);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callMain();
+            }
+        });
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

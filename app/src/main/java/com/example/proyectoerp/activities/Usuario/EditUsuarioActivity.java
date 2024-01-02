@@ -67,7 +67,6 @@ public class EditUsuarioActivity extends AppCompatActivity {
         preguntaSegText.setText(preguntaSeg);
         respuestaSegText.setText(respuestaSeg);
         activoBox = findViewById(R.id.activoBox);
-
         editButton = findViewById(R.id.editButton);
         activoBox.setChecked(activo);
         nameText.addTextChangedListener(new TextWatcher() {

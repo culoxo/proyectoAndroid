@@ -88,15 +88,37 @@
         android:visibility="invisible"/>
 
     <TextView
-        android:id="@+id/Contraseña"
-        android:layout_width="299dp"
-        android:layout_height="22dp"
+        android:id="@+id/cambiarPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:text="Introduce una nueva contraseña"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EnviarRespuesta"
+        app:layout_constraintTop_toBottomOf="@+id/PreguntaSegTexto"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/nuevoPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cambiarPassword"
+        android:hint="Nuevo Password"
+        android:visibility="invisible"/>
+    <Button
+        android:id="@+id/EnviarNuevoPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Nueva Contraseña"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nuevoPassword"
         android:visibility="invisible"/>
 
     <Button
@@ -107,7 +129,7 @@
         android:text="Volver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Contraseña"
+        app:layout_constraintTop_toBottomOf="@+id/EnviarNuevoPassword"
         android:visibility="invisible"/>
 
 

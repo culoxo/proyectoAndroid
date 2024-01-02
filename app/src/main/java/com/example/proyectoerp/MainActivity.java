@@ -13,6 +13,9 @@ import com.example.proyectoerp.activities.MenuActivity;
 import com.example.proyectoerp.activities.RecuperarActivity;
 import com.example.proyectoerp.activities.RegistroActivity;
 import com.example.proyectoerp.model.Usuario;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     CRUDInterface crudInterface;
-    TextView passwordText;
+    EditText passwordText;
     Button loginButton;
     Button recuperarContraButton, registrarUsuario;
     EditText usuarioText;
@@ -43,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     loginButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            getAllUsuarios();
+            String hashedPassword = hashPassword(passwordText.getText().toString());
+            getAllUsuarios(hashedPassword);
         }
     });
     recuperarContraButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getAllUsuarios() {
+    private void getAllUsuarios(String hashedPassword) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.74:9898/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -87,13 +91,24 @@ public class MainActivity extends AppCompatActivity {
                     usuarios = response.body();
 
                     // Itera sobre la lista de usuarios para encontrar coincidencias
+                    boolean usuarioEncontrado = false;
+
                     for (Usuario usuario : usuarios) {
-                        if (usuario.getUsername().toString().equals(usuarioText.getText().toString()) && usuario.getPassword().toString().equals(passwordText.getText().toString())) {
+
+
+                        if (usuario.getUsername().equals(usuarioText.getText().toString()) && usuario.getPassword().equals(hashedPassword)) {
+                            // Si encuentras un usuario que coincide, realiza la acción correspondiente
                             callMenu(usuario);
-                            return;
-                        }else {
-                            Toast.makeText(MainActivity.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                            usuarioEncontrado = true;
+                            break;  // Termina el bucle ya que se encontró un usuario
                         }
+                    }
+
+                    if (!usuarioEncontrado) {
+                        // Si el bucle termina y no se encontró un usuario, muestra el mensaje
+                        Toast.makeText(MainActivity.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                        usuarioText.getText().clear();
+                        passwordText.getText().clear();
                     }
                 }
             }
@@ -103,5 +118,25 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("RecuperarActivity", "Error al obtener usuarios: " + t.getMessage());
             }
         });
+    }
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+
+            // Convierte el hash a una representación hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

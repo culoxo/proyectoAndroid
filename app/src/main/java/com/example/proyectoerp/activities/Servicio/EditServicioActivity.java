@@ -68,7 +68,7 @@ public class EditServicioActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServicioDTO servicioDto = new ServicioDTO(id, nameText.getText().toString(), activoBox.isActivated());
+                ServicioDTO servicioDto = new ServicioDTO(id, nameText.getText().toString(), activoBox.isChecked());
                 edit(servicioDto);
             }
         });

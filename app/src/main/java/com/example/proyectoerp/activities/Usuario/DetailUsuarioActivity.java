@@ -150,7 +150,7 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
     }
 
     private void callMain() {
-        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), UsuarioMainActivity.class);
         startActivity(intent);
     }
 

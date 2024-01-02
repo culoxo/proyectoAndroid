@@ -31,7 +31,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
     CRUDInterface crudInterface;
     Cliente cliente;
     Button deleteButton;
-    Button editButton;
+    Button editButton, volverButton;
     Long id;
 
     @Override
@@ -44,6 +44,13 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
         nameText = findViewById(R.id.nameText);
         idText = findViewById(R.id.idText);
         activoText = findViewById(R.id.activo);
+        volverButton = findViewById(R.id.volverButton);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callMain();
+            }
+        });
         id = getIntent().getExtras().getLong("id");
         editButton = findViewById(R.id.editButton);
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -143,8 +150,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
     }
 
     private void callMain() {
-        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), ClienteMainActivity.class);
         startActivity(intent);
     }
-
 }

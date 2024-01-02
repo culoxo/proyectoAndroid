@@ -31,7 +31,7 @@ public class EditClienteActivity extends AppCompatActivity {
     EditText emailText;
     EditText telefono;
     CRUDInterface crudInterface;
-    Button editButton;
+    Button editButton, volverButton;
     Long id;
     String nombre;
     String direccion;
@@ -60,7 +60,14 @@ public class EditClienteActivity extends AppCompatActivity {
         emailText.setText(email);
         telefono.setText(telefonoString);
         editButton = findViewById(R.id.editButton);
+        volverButton = findViewById(R.id.volverButton);
         activoBox.setChecked(activo);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callVolver();
+            }
+        });
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -118,11 +125,10 @@ public class EditClienteActivity extends AppCompatActivity {
             }
         });
         editButton.setEnabled(buttonEnabled());
-        Toast.makeText(this, "telefono: " + telefono , Toast.LENGTH_SHORT).show();
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClienteDTO clienteDto = new ClienteDTO(id, nameText.getText().toString(), direccionText.getText().toString(), emailText.getText().toString(), telefono.getText().toString(), activoBox.isActivated());
+                ClienteDTO clienteDto = new ClienteDTO(id, nameText.getText().toString(), direccionText.getText().toString(), emailText.getText().toString(), telefono.getText().toString(), activoBox.isChecked());
                 edit(clienteDto);
             }
         });
@@ -138,26 +144,28 @@ public class EditClienteActivity extends AppCompatActivity {
         call.enqueue(new Callback<Cliente>() {
             @Override
             public void onResponse(Call<Cliente> call, Response<Cliente> response) {
-                Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
-                if (!response.isSuccessful()) {
-                    System.out.println(response.message());
-                    return;
-                }
                 Cliente clientes = response.body();
                 Toast.makeText(getApplicationContext(), "El cliente " + nombre + " ha sido editado", Toast.LENGTH_SHORT).show();
                 callMain();
             }
             @Override
             public void onFailure(Call<Cliente> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void callMain() {
-        Intent intent = new Intent (getApplicationContext(), ClienteMainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), DetailClienteActivity.class);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
+    private void callVolver() {
+        Intent intent = new Intent (getApplicationContext(), DetailClienteActivity.class);
+
+        startActivity(intent);
+    }
+
     private boolean buttonEnabled(){
         return nameText.getText().toString().trim().length()>0 && telefono.getText().toString().trim().length()>0;
     }

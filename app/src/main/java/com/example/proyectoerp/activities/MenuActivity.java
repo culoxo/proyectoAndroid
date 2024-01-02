@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.activities.Cliente.ClienteMainActivity;
+import com.example.proyectoerp.activities.Factura.FacturaMainActivity;
 import com.example.proyectoerp.activities.Servicio.ServicioMainActivity;
 import com.example.proyectoerp.activities.Usuario.UsuarioMainActivity;
 
@@ -73,7 +74,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void callFactura() {
-        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FacturaMainActivity.class);
         startActivity(intent);
     }
 }

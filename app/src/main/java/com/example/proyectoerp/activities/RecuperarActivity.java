@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.MainActivity;
 import com.example.proyectoerp.R;
+import com.example.proyectoerp.activities.Usuario.UsuarioMainActivity;
+import com.example.proyectoerp.dto.UsuarioDTO;
 import com.example.proyectoerp.model.Usuario;
 
 import retrofit2.Call;
@@ -22,19 +24,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecuperarActivity extends AppCompatActivity {
 
-    Button recuperarConButton, enviarRespuestaButton, volverButton;
-    EditText usuarioText, respuestaPreguntaSeg;
-    TextView preguntaSeg, contraseña, preguntaSegTexto;
+    Button recuperarConButton, enviarRespuestaButton, volverButton, enviarNuevoPasswordButton;
+    EditText usuarioText, respuestaPreguntaSeg, nuevoPassword;
+    TextView preguntaSeg, contraseña, preguntaSegTexto, cambiarPassword;
     Boolean usuarioExiste = false;
     CRUDInterface crudInterface;
     String nombreBuscado;
     String contraseñaAMostrar;
     List<Usuario> usuarios = new ArrayList<>();  // Inicializar la lista
+    UsuarioDTO usuarioDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +50,20 @@ public class RecuperarActivity extends AppCompatActivity {
         enviarRespuestaButton = findViewById(R.id.EnviarRespuesta);
         respuestaPreguntaSeg = findViewById(R.id.RespuestaPreguntaSeg);
         preguntaSeg = findViewById(R.id.PreguntaSeg);
-        contraseña = findViewById(R.id.Contraseña);
         preguntaSegTexto = findViewById(R.id.PreguntaSegTexto);
         volverButton = findViewById(R.id.VolverButton);
-
+        enviarNuevoPasswordButton = findViewById(R.id.EnviarNuevoPassword);
+        nuevoPassword = findViewById(R.id.nuevoPassword);
+        cambiarPassword = findViewById(R.id.cambiarPassword);
+        enviarNuevoPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usuarioDto.setPassword(hashPassword(nuevoPassword.getText().toString()));
+                edit(usuarioDto.getUsuarioId(), usuarioDto);
+                Toast.makeText(RecuperarActivity.this, "Contraseña de "  + usuarioDto.getUsername().toString() + " ha cambiado", Toast.LENGTH_SHORT).show();
+                callMain();
+            }
+        });
         recuperarConButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,10 +76,11 @@ public class RecuperarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for (Usuario usuario : usuarios) {
-                    if (usuario.getName().equals(nombreBuscado)) {
+                    if (usuario.getUsername().equals(nombreBuscado)) {
+                        usuarioDto = new UsuarioDTO(usuario.getUsuarioId(), usuario.getUsername(),usuario.getName(), usuario.getSurname(),usuario.getSurname2(),
+                                usuario.getEmail(), usuario.getPassword(), usuario.getActive(), usuario.getPreguntaSeg(), usuario.getRespuestaSeg(), usuario.getDeleted(), usuario.getAdmin());
                         if (respuestaPreguntaSeg.getText().toString().equals(usuario.getRespuestaSeg())) {
-                            contraseñaAMostrar = usuario.getPassword();
-                            mostrarContraseña(contraseñaAMostrar);
+                            cambiarContraseña();
                         } else {
                             contraseña.setVisibility(View.VISIBLE);
                             contraseña.setText("Esa no es la respuesta correcta");
@@ -103,7 +119,7 @@ public class RecuperarActivity extends AppCompatActivity {
 
                     // Itera sobre la lista de usuarios para encontrar coincidencias
                     for (Usuario usuario : usuarios) {
-                        if (usuario.getName().equals(nombreBuscado)) {
+                        if (usuario.getUsername().equals(nombreBuscado)) {
                             preguntaSegTexto.setVisibility(View.VISIBLE);
                             preguntaSeg.setVisibility(View.VISIBLE);
                             preguntaSeg.setText(usuario.getPreguntaSeg());
@@ -134,14 +150,62 @@ public class RecuperarActivity extends AppCompatActivity {
         });
     }
 
-    private void mostrarContraseña(String contraseñaAMostrar) {
-        // Muestra la contraseña en el TextView
-        contraseña.setVisibility(View.VISIBLE);
-        contraseña.setText("La contraseña es: " + contraseñaAMostrar);
-        volverButton.setVisibility(View.VISIBLE);
+    private void cambiarContraseña() {
         preguntaSegTexto.setVisibility(View.GONE);
         preguntaSeg.setVisibility(View.GONE);
         respuestaPreguntaSeg.setVisibility(View.GONE);
         enviarRespuestaButton.setVisibility(View.GONE);
+        cambiarPassword.setVisibility(View.VISIBLE);
+        nuevoPassword.setVisibility(View.VISIBLE);  //Cojo el nuevo password
+        enviarNuevoPasswordButton.setVisibility(View.VISIBLE);
     }
+    private void edit (Long id, UsuarioDTO usuarioDto){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.74:9898/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        crudInterface = retrofit.create(CRUDInterface.class);
+        Call<Usuario> call = crudInterface.editUsuario(id, usuarioDto);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println(response.message());
+                    return;
+                }
+                Usuario usuarios = response.body();
+            }
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+
+            // Convierte el hash a una representación hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private void callMain() {
+        Intent intent = new Intent (getApplicationContext(), UsuarioMainActivity.class);
+        startActivity(intent);
+    }
+
+
+
 }
