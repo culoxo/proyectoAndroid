@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#817CE6F4"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,8 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"
-            android:drawableLeft="@drawable/baseline_remove_red_eye_24"
-            android:textColor="@color/black"
+            android:drawableLeft="@drawable/baseline_remove_red_eye_24_white"
+            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:text="Ver"
             />

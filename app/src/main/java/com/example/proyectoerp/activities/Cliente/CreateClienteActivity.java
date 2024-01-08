@@ -30,13 +30,14 @@ public class CreateClienteActivity extends AppCompatActivity {
     Button createButton, volverButton;
     CRUDInterface crudInterface;
     CheckBox activoBox;
-
+    Boolean soyAdmin;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cliente);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         nameText = findViewById(R.id.nameText);
         direccionText = findViewById(R.id.direccionText);
         emailText = findViewById(R.id.emailText);
@@ -145,6 +146,7 @@ public class CreateClienteActivity extends AppCompatActivity {
 
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), ClienteMainActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 

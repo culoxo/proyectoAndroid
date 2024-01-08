@@ -13,9 +13,6 @@ import com.example.proyectoerp.activities.MenuActivity;
 import com.example.proyectoerp.activities.RecuperarActivity;
 import com.example.proyectoerp.activities.RegistroActivity;
 import com.example.proyectoerp.model.Usuario;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         registrarUsuario = findViewById(R.id.RegistrarUsuarioButton);
         recuperarContraButton = findViewById(R.id.RecuperarConButton);
         usuarioText = findViewById(R.id.UsuarioText);
@@ -46,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     loginButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String hashedPassword = hashPassword(passwordText.getText().toString());
-            getAllUsuarios(hashedPassword);
+           // String hashedPassword = hashPassword(passwordText.getText().toString());
+            getAllUsuarios(usuarioText.getText().toString(), passwordText.getText().toString());
         }
     });
     recuperarContraButton.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void callMenu(Usuario usuario) {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-        intent.putExtra("admin", usuario.getAdmin());
+        intent.putExtra("soyAdmin", usuario.getAdmin());
         startActivity(intent);
     }
     private void callRecuperar() {
@@ -77,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getAllUsuarios(String hashedPassword) {
+    private void getAllUsuarios(String usu, String pass) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.74:9898/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         crudInterface = retrofit.create(CRUDInterface.class);
-        Call<List<Usuario>> call = crudInterface.getAllUsuarios(null, null, null);
+        Call<List<Usuario>> call = crudInterface.getAllUsuarios(usu, pass, null);
         call.enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
@@ -94,14 +90,11 @@ public class MainActivity extends AppCompatActivity {
                     boolean usuarioEncontrado = false;
 
                     for (Usuario usuario : usuarios) {
-
-
-                        if (usuario.getUsername().equals(usuarioText.getText().toString()) && usuario.getPassword().equals(hashedPassword)) {
-                            // Si encuentras un usuario que coincide, realiza la acción correspondiente
+                        Toast.makeText(MainActivity.this, "admin " + usuario.getAdmin(), Toast.LENGTH_SHORT).show();
+                        usuarioEncontrado = true;
                             callMenu(usuario);
-                            usuarioEncontrado = true;
                             break;  // Termina el bucle ya que se encontró un usuario
-                        }
+
                     }
 
                     if (!usuarioEncontrado) {
@@ -119,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -138,5 +133,5 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 }

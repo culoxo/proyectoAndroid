@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
+import com.example.proyectoerp.activities.Cliente.DetailClienteActivity;
 import com.example.proyectoerp.dto.UsuarioDTO;
 import com.example.proyectoerp.model.Usuario;
 
@@ -30,16 +31,18 @@ public class EditUsuarioActivity extends AppCompatActivity {
     Usuario usuario;
     EditText emailText, nameText, usernameText,surnameText, surname2Text, passwordText, preguntaSegText, respuestaSegText ;
     CRUDInterface crudInterface;
-    Button editButton;
+    Button editButton, volverButton;
     Long id;
     String nombre, username,email,apellido1, apellido2, password, preguntaSeg, respuestaSeg;
     CheckBox activoBox;
-    Boolean activo;
+    Boolean activo, soyAdmin;
     Boolean admin = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_usuario);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         id = getIntent().getExtras().getLong("id");
         nombre= getIntent().getExtras().getString("nombre");
         username= getIntent().getExtras().getString("username");
@@ -54,7 +57,6 @@ public class EditUsuarioActivity extends AppCompatActivity {
         emailText = findViewById(R.id.emailText);
         surnameText = findViewById(R.id.surnameText);
         surname2Text = findViewById(R.id.surname2Text);
-        passwordText = findViewById(R.id.passwordText);
         preguntaSegText = findViewById(R.id.preguntaSegText);
         respuestaSegText = findViewById(R.id.respuestaSegText);
         nameText = findViewById(R.id.nameText);
@@ -63,12 +65,18 @@ public class EditUsuarioActivity extends AppCompatActivity {
         usernameText.setText(username);
         surnameText.setText(apellido1);
         surname2Text.setText(apellido2);
-        passwordText.setText(password);
         preguntaSegText.setText(preguntaSeg);
         respuestaSegText.setText(respuestaSeg);
         activoBox = findViewById(R.id.activoBox);
         editButton = findViewById(R.id.editButton);
+        volverButton = findViewById(R.id.volverButton);
         activoBox.setChecked(activo);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callVolver();
+            }
+        });
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,20 +147,7 @@ public class EditUsuarioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        passwordText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editButton.setEnabled(buttonEnabled());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
         preguntaSegText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -190,7 +185,7 @@ public class EditUsuarioActivity extends AppCompatActivity {
                     admin = true;
                 };
                 UsuarioDTO usuarioDto = new UsuarioDTO(usernameText.getText().toString(),nameText.getText().toString(), surnameText.getText().toString(),surname2Text
-                        .getText().toString(),emailText.getText().toString(), passwordText.getText().toString(), activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
+                        .getText().toString(),emailText.getText().toString(), password, activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
                 edit(usuarioDto);
             }
         });
@@ -212,7 +207,7 @@ public class EditUsuarioActivity extends AppCompatActivity {
                     return;
                 }
                 Usuario usuarios = response.body();
-                Toast.makeText(getApplicationContext(), "El cliente " + nombre + " ha sido editado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "El usuario " + nombre + " ha sido editado", Toast.LENGTH_SHORT).show();
                 callMain();
             }
             @Override
@@ -224,9 +219,17 @@ public class EditUsuarioActivity extends AppCompatActivity {
 
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), UsuarioMainActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+    private void callVolver() {
+        Intent intent = new Intent (getApplicationContext(), DetailUsuarioActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
     private boolean buttonEnabled(){
-        return nameText.getText().toString().trim().length()>0 && surnameText.getText().toString().trim().length()>0 && surname2Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && passwordText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
+        return nameText.getText().toString().trim().length()>0 && surnameText.getText().toString().trim().length()>0 && surname2Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
     }
 }

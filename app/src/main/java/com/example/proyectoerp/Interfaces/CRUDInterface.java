@@ -52,7 +52,7 @@ public interface CRUDInterface {
 
     @GET("api/v1/usuarios")
     Call<List<Usuario>> getAllUsuarios(
-            @Query("NAME") String name,
+            @Query("USERNAME") String username,
             @Query("PASSWORD") String password,
             @Query("active") Boolean active
     );

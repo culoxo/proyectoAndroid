@@ -22,10 +22,20 @@ public class UsuarioAdapter extends BaseAdapter {
     Context context;
     TextView nameText;
     Button viewButton;
+    Boolean soyAdmin;
 
-    public UsuarioAdapter(List<Usuario> usuarios, Context context) {
+    public UsuarioAdapter(List<Usuario> usuarios, Context context, Boolean soyAdmin) {
         this.usuarios = usuarios;
         this.context = context;
+        this.soyAdmin = soyAdmin;
+    }
+
+    public Boolean getSoyAdmin() {
+        return soyAdmin;
+    }
+
+    public void setSoyAdmin(Boolean soyAdmin) {
+        this.soyAdmin = soyAdmin;
     }
 
     @Override
@@ -64,6 +74,7 @@ public class UsuarioAdapter extends BaseAdapter {
     private void callDetail(Long id){
         Intent intent = new Intent(context, DetailUsuarioActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("soyAdmin", soyAdmin);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 

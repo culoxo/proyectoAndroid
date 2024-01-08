@@ -27,22 +27,22 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
     TextView telefono;
     TextView direccionText;
     TextView nameText;
-    TextView idText;
     CRUDInterface crudInterface;
     Cliente cliente;
     Button deleteButton;
     Button editButton, volverButton;
     Long id;
+    Boolean soyAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_cliente);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         direccionText =findViewById(R.id.direccionText);
         emailText = findViewById(R.id.emailText);
         telefono = findViewById(R.id.telefono);
         nameText = findViewById(R.id.nameText);
-        idText = findViewById(R.id.idText);
         activoText = findViewById(R.id.activo);
         volverButton = findViewById(R.id.volverButton);
         volverButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +80,6 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
                     return;
                 }
                 cliente = response.body();
-                idText.setText(String.valueOf(cliente.getClienteId()));
                 direccionText.setText(cliente.getDireccion());
                 nameText.setText(cliente.getNombre());
                 emailText.setText(cliente.getEmail());
@@ -112,6 +111,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
         intent.putExtra("email", cliente.getEmail());
         intent.putExtra("telefono", cliente.getTelefono());
         intent.putExtra("activo", cliente.isActive());
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 
@@ -151,6 +151,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
 
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), ClienteMainActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 }

@@ -33,7 +33,7 @@ public class RecuperarActivity extends AppCompatActivity {
 
     Button recuperarConButton, enviarRespuestaButton, volverButton, enviarNuevoPasswordButton;
     EditText usuarioText, respuestaPreguntaSeg, nuevoPassword;
-    TextView preguntaSeg, contraseña, preguntaSegTexto, cambiarPassword;
+    TextView preguntaSeg, preguntaSegTexto, cambiarPassword;
     Boolean usuarioExiste = false;
     CRUDInterface crudInterface;
     String nombreBuscado;
@@ -58,7 +58,7 @@ public class RecuperarActivity extends AppCompatActivity {
         enviarNuevoPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usuarioDto.setPassword(hashPassword(nuevoPassword.getText().toString()));
+                usuarioDto.setPassword(nuevoPassword.getText().toString());
                 edit(usuarioDto.getUsuarioId(), usuarioDto);
                 Toast.makeText(RecuperarActivity.this, "Contraseña de "  + usuarioDto.getUsername().toString() + " ha cambiado", Toast.LENGTH_SHORT).show();
                 callMain();
@@ -82,13 +82,13 @@ public class RecuperarActivity extends AppCompatActivity {
                         if (respuestaPreguntaSeg.getText().toString().equals(usuario.getRespuestaSeg())) {
                             cambiarContraseña();
                         } else {
-                            contraseña.setVisibility(View.VISIBLE);
-                            contraseña.setText("Esa no es la respuesta correcta");
+                            preguntaSegTexto.setText("Esa no es la respuesta correcta");
+                            Toast.makeText(RecuperarActivity.this, "Esa no es la respuesta correcta", Toast.LENGTH_SHORT).show();
                             volverButton.setVisibility(View.VISIBLE);
-                            preguntaSegTexto.setVisibility(View.GONE);
                             preguntaSeg.setVisibility(View.GONE);
                             respuestaPreguntaSeg.setVisibility(View.GONE);
                             enviarRespuestaButton.setVisibility(View.GONE);
+                            callMain();
                         }
                     }
                 }
@@ -138,6 +138,8 @@ public class RecuperarActivity extends AppCompatActivity {
                     if (!usuarioExiste) {
                         preguntaSeg.setVisibility(View.VISIBLE);
                         preguntaSeg.setText("Este usuario no existe");
+                        Toast.makeText(RecuperarActivity.this, "Este usuario no existe", Toast.LENGTH_SHORT).show();
+                        callMain();
                     }
                 }
             }
@@ -181,7 +183,7 @@ public class RecuperarActivity extends AppCompatActivity {
             }
         });
     }
-    private String hashPassword(String password) {
+    /*private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes());
@@ -201,11 +203,10 @@ public class RecuperarActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    */
     private void callMain() {
-        Intent intent = new Intent (getApplicationContext(), UsuarioMainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
-
-
-
 }

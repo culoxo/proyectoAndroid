@@ -25,20 +25,28 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
     Servicio servicio;
     TextView activoText;
     TextView nameText;
-    TextView idText;
+
     CRUDInterface crudInterface;
     Button deleteButton;
-    Button editButton;
+    Button editButton, volverButton;
     Long id;
+    Boolean soyAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_servicio);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         nameText = findViewById(R.id.nameText);
-        idText = findViewById(R.id.idText);
         activoText = findViewById(R.id.activo);
         id = getIntent().getExtras().getLong("id");
+        volverButton = findViewById(R.id.volverButton);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callMain();
+            }
+        });
         editButton = findViewById(R.id.editButton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +75,6 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
                     return;
                 }
                 servicio = response.body();
-                idText.setText(String.valueOf(servicio.getServicioId()));
                 nameText.setText(servicio.getNombre());
                 if (servicio.isActive()) {
                     activoText.setText("Activo");
@@ -93,6 +100,7 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
         intent.putExtra("id", servicio.getServicioId());
         intent.putExtra("nombre", servicio.getNombre());
         intent.putExtra("activo", servicio.isActive());
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 
@@ -116,8 +124,6 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
 
             @Override
             public void onFailure(Call<Servicio> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "t.getMessage()", Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -132,6 +138,7 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
 
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), ServicioMainActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 

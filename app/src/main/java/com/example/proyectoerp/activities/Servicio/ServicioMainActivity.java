@@ -28,11 +28,12 @@ public class ServicioMainActivity extends AppCompatActivity {
     ListView listView;
     FloatingActionButton createButton;
     FloatingActionButton backButton;
-
+Boolean soyAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servicio_main);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         listView = findViewById(R.id.listView);
         createButton = findViewById(R.id.createButton);
         backButton = findViewById(R.id.volverMenuButton);
@@ -73,7 +74,7 @@ public class ServicioMainActivity extends AppCompatActivity {
                 for (Servicio servicio : servicios) {
                     Log.d("Servicio ID", String.valueOf(servicio.getServicioId()));
                 }
-                ServicioAdapter servicioAdapter = new ServicioAdapter(servicios, getApplicationContext());
+                ServicioAdapter servicioAdapter = new ServicioAdapter(servicios, getApplicationContext(), soyAdmin);
                 listView.setAdapter(servicioAdapter);
             }
 
@@ -85,11 +86,13 @@ public class ServicioMainActivity extends AppCompatActivity {
     }
     private void callCreate() {
         Intent intent = new Intent(getApplicationContext(), CreateServicioActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
 
     }
     private void callVolver() {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 }

@@ -27,10 +27,12 @@ public class UsuarioMainActivity extends AppCompatActivity {
     ListView listView;
     FloatingActionButton createButton;
     FloatingActionButton backButton;
+    Boolean soyAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_main);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         listView = findViewById(R.id.listView);
         createButton = findViewById(R.id.createButton);
         backButton = findViewById(R.id.volverMenuButton);
@@ -71,7 +73,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
                 for (Usuario usuario : usuarios) {
                     Log.d("Usuario ID", String.valueOf(usuario.getUsuarioId()));
                 }
-                UsuarioAdapter usuarioAdapter = new UsuarioAdapter(usuarios, getApplicationContext());
+                UsuarioAdapter usuarioAdapter = new UsuarioAdapter(usuarios, getApplicationContext(), soyAdmin);
                 listView.setAdapter(usuarioAdapter);
             }
 
@@ -83,10 +85,12 @@ public class UsuarioMainActivity extends AppCompatActivity {
     }
     private void callCreate() {
         Intent intent = new Intent(getApplicationContext(), CreateUsuarioActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
     private void callVolver() {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 }

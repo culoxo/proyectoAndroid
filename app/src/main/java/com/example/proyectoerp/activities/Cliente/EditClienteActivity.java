@@ -38,12 +38,13 @@ public class EditClienteActivity extends AppCompatActivity {
     String email;
     String telefonoString;
     CheckBox activoBox;
-    Boolean activo;
+    Boolean activo, soyAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_cliente);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         id = getIntent().getExtras().getLong("id");
         nombre= getIntent().getExtras().getString("nombre");
         direccion= getIntent().getExtras().getString("direccion");
@@ -158,11 +159,13 @@ public class EditClienteActivity extends AppCompatActivity {
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), DetailClienteActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
     private void callVolver() {
         Intent intent = new Intent (getApplicationContext(), DetailClienteActivity.class);
-
+        intent.putExtra("soyAdmin", soyAdmin);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 

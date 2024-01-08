@@ -22,11 +22,22 @@ List<Servicio> servicios;
 Context context;
 TextView nameText;
 Button viewButton;
+Boolean soyAdmin;
 
-    public ServicioAdapter(List<Servicio> servicios, Context context) {
+    public ServicioAdapter(List<Servicio> servicios, Context context, Boolean soyAdmin) {
         this.servicios = servicios;
         this.context = context;
+        this.soyAdmin = soyAdmin;
     }
+
+    public Boolean getSoyAdmin() {
+        return soyAdmin;
+    }
+
+    public void setSoyAdmin(Boolean soyAdmin) {
+        this.soyAdmin = soyAdmin;
+    }
+
     @Override
     public int getCount() {
         return servicios.size();
@@ -59,6 +70,7 @@ Button viewButton;
     private void callDetail(Long id){
         Intent intent = new Intent(context, DetailServicioActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("soyAdmin", soyAdmin);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

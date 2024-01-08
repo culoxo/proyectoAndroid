@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.activities.Cliente.ClienteMainActivity;
+import com.example.proyectoerp.activities.Cliente.DetailClienteActivity;
 import com.example.proyectoerp.dto.ClienteDTO;
 import com.example.proyectoerp.dto.ServicioDTO;
 import com.example.proyectoerp.model.Cliente;
@@ -31,16 +32,17 @@ public class EditServicioActivity extends AppCompatActivity {
     Servicio servicio;
     EditText nameText;
     CRUDInterface crudInterface;
-    Button editButton;
+    Button editButton, volverButton;
     Long id;
     String nombre;
     CheckBox activoBox;
-    Boolean activo;
+    Boolean activo, soyAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_servicio);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         id = getIntent().getExtras().getLong("id");
         nombre= getIntent().getExtras().getString("nombre");
         activo = getIntent().getExtras().getBoolean("activo");
@@ -48,7 +50,14 @@ public class EditServicioActivity extends AppCompatActivity {
         activoBox = findViewById(R.id.activoBox);
         nameText.setText(nombre);
         editButton = findViewById(R.id.editButton);
+        volverButton = findViewById(R.id.volverButton);
         activoBox.setChecked(activo);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callVolver();
+            }
+        });
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -84,7 +93,6 @@ public class EditServicioActivity extends AppCompatActivity {
         call.enqueue(new Callback<Servicio>() {
             @Override
             public void onResponse(Call<Servicio> call, Response<Servicio> response) {
-                Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
                 if (!response.isSuccessful()) {
                     System.out.println(response.message());
                     return;
@@ -101,7 +109,15 @@ public class EditServicioActivity extends AppCompatActivity {
     }
 
     private void callMain() {
-        Intent intent = new Intent (getApplicationContext(), ServicioMainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), DetailServicioActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+    private void callVolver() {
+        Intent intent = new Intent (getApplicationContext(), DetailServicioActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
     private boolean buttonEnabled(){

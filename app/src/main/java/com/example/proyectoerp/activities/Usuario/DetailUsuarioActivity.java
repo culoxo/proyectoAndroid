@@ -27,21 +27,28 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
     CRUDInterface crudInterface;
     Usuario usuario;
     Button deleteButton;
-    Button editButton;
+    Button editButton, volverButton;
     Long id;
+    Boolean soyAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_usuario);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         usernameText =findViewById(R.id.usernameText);
         emailText = findViewById(R.id.emailText);
         surnameText = findViewById(R.id.surnameText);
         surname2Text = findViewById(R.id.surname2Text);
-        passwordText = findViewById(R.id.passwordText);
         nameText = findViewById(R.id.nameText);
-        idText = findViewById(R.id.idText);
         activoText = findViewById(R.id.activo);
+        volverButton = findViewById(R.id.volverButton);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callMain();
+            }
+        });
         id = getIntent().getExtras().getLong("id");
         Toast.makeText(DetailUsuarioActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         editButton = findViewById(R.id.editButton);
@@ -73,13 +80,11 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
                 }
                 usuario = response.body();
 
-                idText.setText(String.valueOf(usuario.getUsuarioId()));
                 usernameText.setText(usuario.getUsername());
                 nameText.setText(usuario.getName());
                 emailText.setText(usuario.getEmail());
                 surnameText.setText(usuario.getSurname());
                 surname2Text.setText(usuario.getSurname2());
-                passwordText.setText(usuario.getPassword());
                 if (usuario.getActive()) {
                     activoText.setText("Activo");
                 } else {
@@ -112,6 +117,7 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
         intent.putExtra("preguntaSeg", usuario.getPreguntaSeg());
         intent.putExtra("respuestaSeg", usuario.getRespuestaSeg());
         intent.putExtra("activo", usuario.getActive());
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 
@@ -151,6 +157,7 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
 
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), UsuarioMainActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 

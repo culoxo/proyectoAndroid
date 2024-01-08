@@ -158,9 +158,9 @@ public class RegistroActivity extends AppCompatActivity {
                     admin = true;
                 };
 
-                String pass = hashPassword(passwordText.getText().toString());
+                //String pass = hashPassword(passwordText.getText().toString());
                 UsuarioDTO usuarioDto = new UsuarioDTO(usuarioText.getText().toString(),nameText.getText().toString(), apellido1Text.getText().toString(),apellido2Text
-                        .getText().toString(),emailText.getText().toString(), pass, activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
+                        .getText().toString(),emailText.getText().toString(), passwordText.getText().toString(), activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
                 create(usuarioDto);
             }
         });
@@ -200,6 +200,7 @@ public class RegistroActivity extends AppCompatActivity {
     private boolean buttonEnabled(){
         return nameText.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && passwordText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
     }
+    /*
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -221,5 +222,5 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-
+*/
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
@@ -31,11 +32,13 @@ public class ClienteMainActivity extends AppCompatActivity {
     ListView listView;
     FloatingActionButton createButton;
     FloatingActionButton backButton;
+    Boolean soyAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_main);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         listView = findViewById(R.id.listView);
         createButton = findViewById(R.id.createButton);
         backButton = findViewById(R.id.volverMenuButton);
@@ -76,7 +79,7 @@ public class ClienteMainActivity extends AppCompatActivity {
                 for (Cliente cliente : clientes) {
                     Log.d("Cliente ID", String.valueOf(cliente.getClienteId()));
                 }
-                ClientesAdapter clientesAdapter = new ClientesAdapter(clientes, getApplicationContext());
+                ClientesAdapter clientesAdapter = new ClientesAdapter(clientes, getApplicationContext(), soyAdmin);
                 listView.setAdapter(clientesAdapter);
             }
 
@@ -88,11 +91,13 @@ public class ClienteMainActivity extends AppCompatActivity {
     }
     private void callCreate() {
         Intent intent = new Intent(getApplicationContext(), CreateClienteActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
 
     }
     private void callVolver() {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 }

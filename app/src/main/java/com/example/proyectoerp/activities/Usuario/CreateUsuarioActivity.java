@@ -28,17 +28,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CreateUsuarioActivity extends AppCompatActivity {
 
     EditText usuarioText, nameText,apellido1Text,apellido2Text,emailText, passwordText, preguntaSegText, respuestaSegText;
-    Button createButton;
+    Button createButton, volverButton;
     CRUDInterface crudInterface;
     CheckBox activoBox;
     Boolean admin = false;
 
+    Boolean soyAdmin;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_usuario);
+        soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         passwordText = findViewById(R.id.PasswordText);
         usuarioText = findViewById(R.id.Usuario);
         nameText = findViewById(R.id.NameText);
@@ -49,6 +51,13 @@ public class CreateUsuarioActivity extends AppCompatActivity {
         respuestaSegText = findViewById(R.id.RespuestaSegText);
         activoBox = findViewById(R.id.activoBox);
         createButton = findViewById(R.id.createButton);
+        volverButton = findViewById(R.id.volverButton);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callMain();
+            }
+        });
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -155,9 +164,9 @@ public class CreateUsuarioActivity extends AppCompatActivity {
                 if (usuarioText.getText().toString().endsWith("admin")) {
                     admin = true;
                 };
-            String pass = hashPassword(passwordText.getText().toString());
+       //     String pass = hashPassword(passwordText.getText().toString());
                 UsuarioDTO usuarioDto = new UsuarioDTO(usuarioText.getText().toString(),nameText.getText().toString(), apellido1Text.getText().toString(),apellido2Text
-                        .getText().toString(),emailText.getText().toString(), pass, activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
+                        .getText().toString(),emailText.getText().toString(), passwordText.getText().toString(), activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
                 create(usuarioDto);
             }
         });
@@ -191,13 +200,14 @@ public class CreateUsuarioActivity extends AppCompatActivity {
 
     private void callMain() {
         Intent intent = new Intent (getApplicationContext(), UsuarioMainActivity.class);
+        intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
 
     private boolean buttonEnabled(){
         return nameText.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && passwordText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
     }
-
+/*
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -217,5 +227,5 @@ public class CreateUsuarioActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 }

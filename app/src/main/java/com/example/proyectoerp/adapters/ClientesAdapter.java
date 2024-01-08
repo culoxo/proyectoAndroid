@@ -22,10 +22,20 @@ List<Cliente> clientes;
 Context context;
 TextView nameText;
 Button viewButton;
+Boolean soyAdmin;
 
-    public ClientesAdapter(List<Cliente> clientes, Context context) {
+    public ClientesAdapter(List<Cliente> clientes, Context context, Boolean soyAdmin) {
         this.clientes = clientes;
         this.context = context;
+        this.soyAdmin = soyAdmin;
+    }
+
+    public Boolean getSoyAdmin() {
+        return soyAdmin;
+    }
+
+    public void setSoyAdmin(Boolean soyAdmin) {
+        this.soyAdmin = soyAdmin;
     }
 
     @Override
@@ -62,6 +72,7 @@ Button viewButton;
     private void callDetail(Long id){
         Intent intent = new Intent(context, DetailClienteActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("soyAdmin", soyAdmin);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 
