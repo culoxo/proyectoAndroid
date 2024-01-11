@@ -51,6 +51,7 @@ tools:context=".activities.Cliente.EditClienteActivity">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activoBox"></Button>
 
+
     <Button
     android:id="@+id/volverButton"
     android:layout_width="wrap_content"

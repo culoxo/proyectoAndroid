@@ -14,6 +14,11 @@ import com.example.proyectoerp.MainActivity;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.fragments.DeleteFragment;
 import com.example.proyectoerp.model.Cliente;
+import com.example.proyectoerp.model.Servicio;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +32,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
     TextView telefono;
     TextView direccionText;
     TextView nameText;
+    TextView serviciosText;
     CRUDInterface crudInterface;
     Cliente cliente;
     Button deleteButton;
@@ -45,6 +51,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
         nameText = findViewById(R.id.nameText);
         activoText = findViewById(R.id.activo);
         volverButton = findViewById(R.id.volverButton);
+        serviciosText = findViewById(R.id.serviciosText);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +96,8 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
                 } else {
                     activoText.setText("Inactivo");
                 }
+                //Muestra la lista de servicios
+                mostrarServicios(cliente.getServicios());
             }
             @Override
             public void onFailure(Call<Cliente> call, Throwable t) {
@@ -154,4 +163,15 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
         intent.putExtra("soyAdmin", soyAdmin);
         startActivity(intent);
     }
+
+    private void mostrarServicios(List<Servicio> servicios) {
+        StringBuilder serviciosStr = new StringBuilder();
+
+        for (Servicio servicio : servicios) {
+            serviciosStr.append(servicio.getNombre()).append("\n");
+        }
+
+        serviciosText.setText(serviciosStr.toString());
+    }
+
 }

@@ -5,16 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
+import com.example.proyectoerp.adapters.ServicioAdapter;
 import com.example.proyectoerp.dto.ClienteDTO;
 import com.example.proyectoerp.model.Cliente;
+import com.example.proyectoerp.model.Servicio;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EditClienteActivity extends AppCompatActivity {
 
     Cliente cliente;
+    List<Servicio> servicios;
     EditText nameText;
     EditText direccionText;
     EditText emailText;
@@ -39,6 +49,8 @@ public class EditClienteActivity extends AppCompatActivity {
     String telefonoString;
     CheckBox activoBox;
     Boolean activo, soyAdmin;
+    Spinner serviciosSpinner;
+    TextView serviciosText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,7 @@ public class EditClienteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_cliente);
         soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         id = getIntent().getExtras().getLong("id");
+        Toast.makeText(this, "Id: " + id, Toast.LENGTH_SHORT).show();
         nombre= getIntent().getExtras().getString("nombre");
         direccion= getIntent().getExtras().getString("direccion");
         email = getIntent().getExtras().getString("email");
@@ -63,6 +76,7 @@ public class EditClienteActivity extends AppCompatActivity {
         editButton = findViewById(R.id.editButton);
         volverButton = findViewById(R.id.volverButton);
         activoBox.setChecked(activo);
+        serviciosText= findViewById(R.id.serviciosText);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +147,37 @@ public class EditClienteActivity extends AppCompatActivity {
                 edit(clienteDto);
             }
         });
+        getOne(id);
+        getAllServicios();
+        serviciosSpinner = findViewById(R.id.serviciosSpinner);
+
     }
+
+    private void getOne(Long id){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.74:9898/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        crudInterface = retrofit.create(CRUDInterface.class);
+        Call<Cliente> call = crudInterface.getOneCliente(id);
+        call.enqueue(new Callback<Cliente>() {
+            @Override
+            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println(response.message());
+                    return;
+                }
+                cliente = response.body();
+                //Muestra la lista de servicios
+                mostrarServicios(cliente.getServicios());
+            }
+            @Override
+            public void onFailure(Call<Cliente> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     private void edit (ClienteDTO clienteDto){
         Retrofit retrofit = new Retrofit.Builder()
@@ -172,4 +216,56 @@ public class EditClienteActivity extends AppCompatActivity {
     private boolean buttonEnabled(){
         return nameText.getText().toString().trim().length()>0 && telefono.getText().toString().trim().length()>0;
     }
+
+    private void getAllServicios(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.74:9898/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        crudInterface = retrofit.create(CRUDInterface.class);
+        Call<List<Servicio>> call = crudInterface.getAllServicios();
+        call.enqueue(new Callback<List<Servicio>>() {
+            @Override
+            public void onResponse(Call<List<Servicio>> call, Response<List<Servicio>> response) {
+                if(response.isSuccessful()){
+                    mostrarServiciosDisponibles(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Servicio>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+    private void mostrarServiciosDisponibles(List<Servicio> serviciosDisponibles) {
+        // Extraer solo los nombres de los servicios
+        List<String> nombresServicios = new ArrayList<>();
+
+        // Agregar el elemento por defecto
+        nombresServicios.add("Selecciona un servicio para añadir");
+
+        for (Servicio servicio : serviciosDisponibles) {
+            nombresServicios.add(servicio.getNombre());
+        }
+
+        // Poblar el Spinner con los nombres de los servicios disponibles
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nombresServicios);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        serviciosSpinner.setAdapter(adapter);
+
+        // Establecer el ítem por defecto como seleccionado
+        serviciosSpinner.setSelection(0);
+    }
+
+    private void mostrarServicios(List<Servicio> servicios) {
+        StringBuilder serviciosStr = new StringBuilder();
+
+        for (Servicio servicio : servicios) {
+            serviciosStr.append(servicio.getNombre()).append("\n");
+        }
+
+        serviciosText.setText(serviciosStr.toString());
+    }
+
 }

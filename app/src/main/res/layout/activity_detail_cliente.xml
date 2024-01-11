@@ -94,6 +94,25 @@
         app:layout_constraintStart_toStartOf="@+id/telefono"
         app:layout_constraintTop_toBottomOf="@+id/telefono"></EditText>
 
+    <TextView
+        android:id="@+id/serviciosText"
+        android:layout_width="297dp"
+        android:textSize="50px"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/activo"
+        app:layout_constraintTop_toBottomOf="@+id/activo"/>
+
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="90dp"
+        android:layout_height="43dp"
+        android:gravity="center"
+        android:text="Servicios"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
     <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
@@ -105,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activo"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/serviciosText"></Button>
 
     <Button
         android:id="@+id/deleteButton"

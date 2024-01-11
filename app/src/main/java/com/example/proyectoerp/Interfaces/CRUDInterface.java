@@ -34,6 +34,8 @@ public interface CRUDInterface {
     @DELETE("api/v1/clientes/{id}")
     Call<Cliente> deleteCliente(@Path("id") Long id);
 
+
+
     @GET("api/v1/servicios")
     Call<List<Servicio>> getAllServicios();
 

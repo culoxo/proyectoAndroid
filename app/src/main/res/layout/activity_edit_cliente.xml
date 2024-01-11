@@ -89,6 +89,34 @@
         app:layout_constraintStart_toStartOf="@+id/telefono"
         app:layout_constraintTop_toBottomOf="@+id/telefono" />
 
+    <TextView
+        android:id="@+id/serviciosText"
+        android:layout_width="297dp"
+        android:textSize="50px"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/activoBox"
+        app:layout_constraintTop_toBottomOf="@+id/activoBox"/>
+
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="90dp"
+        android:layout_height="43dp"
+        android:gravity="center"
+        android:text="Servicios"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Spinner
+        android:id="@+id/serviciosSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/serviciosText"
+        app:layout_constraintTop_toBottomOf="@+id/serviciosText"/>
+
+
     <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
@@ -100,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activoBox"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/serviciosSpinner"></Button>
 
     <Button
         android:id="@+id/volverButton"
