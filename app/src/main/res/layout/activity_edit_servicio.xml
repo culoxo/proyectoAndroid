@@ -53,7 +53,7 @@ tools:context=".activities.Cliente.EditClienteActivity">
 
 
     <Button
-    android:id="@+id/volverButton"
+    android:id="@+id/boton_Volver"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="88dp"

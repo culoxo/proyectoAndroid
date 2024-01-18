@@ -40,7 +40,7 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
         nameText = findViewById(R.id.nameText);
         activoText = findViewById(R.id.activo);
         id = getIntent().getExtras().getLong("id");
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

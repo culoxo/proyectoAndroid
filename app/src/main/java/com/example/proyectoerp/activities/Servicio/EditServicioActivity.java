@@ -14,11 +14,7 @@ import android.widget.Toast;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
-import com.example.proyectoerp.activities.Cliente.ClienteMainActivity;
-import com.example.proyectoerp.activities.Cliente.DetailClienteActivity;
-import com.example.proyectoerp.dto.ClienteDTO;
 import com.example.proyectoerp.dto.ServicioDTO;
-import com.example.proyectoerp.model.Cliente;
 import com.example.proyectoerp.model.Servicio;
 
 import retrofit2.Call;
@@ -50,7 +46,7 @@ public class EditServicioActivity extends AppCompatActivity {
         activoBox = findViewById(R.id.activoBox);
         nameText.setText(nombre);
         editButton = findViewById(R.id.editButton);
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         activoBox.setChecked(activo);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override

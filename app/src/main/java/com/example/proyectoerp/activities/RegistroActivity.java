@@ -5,14 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.MainActivity;
+import com.example.proyectoerp.PoliticaDatosActivity;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.activities.Usuario.UsuarioMainActivity;
 import com.example.proyectoerp.dto.UsuarioDTO;
@@ -29,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    EditText usuarioText, nameText,apellido1Text,apellido2Text,emailText, passwordText, preguntaSegText, respuestaSegText;
+    EditText usuarioText, nameText,apellido1Text,apellido2Text,emailText, passwordText, preguntaSegText, respuestaSegText, passwordAdmin;
     Button createButton;
     CRUDInterface crudInterface;
     CheckBox activoBox;
@@ -50,7 +56,11 @@ public class RegistroActivity extends AppCompatActivity {
         preguntaSegText = findViewById(R.id.PreguntaSegText);
         respuestaSegText = findViewById(R.id.RespuestaSegText);
         activoBox = findViewById(R.id.activoBox);
+        passwordAdmin = findViewById(R.id.passwordAdmin);
         createButton = findViewById(R.id.createButton);
+        TextView textViewPolitica = findViewById(R.id.proteccionDatos);
+        textViewPolitica.setMovementMethod(LinkMovementMethod.getInstance());
+        textViewPolitica.setText(getClickableSpan());
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -154,11 +164,10 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (usuarioText.getText().toString().endsWith("admin")) {
+                if (passwordAdmin.getText().toString().equals("anicia")) {
                     admin = true;
                 };
 
-                //String pass = hashPassword(passwordText.getText().toString());
                 UsuarioDTO usuarioDto = new UsuarioDTO(usuarioText.getText().toString(),nameText.getText().toString(), apellido1Text.getText().toString(),apellido2Text
                         .getText().toString(),emailText.getText().toString(), passwordText.getText().toString(), activoBox.isChecked(), preguntaSegText.getText().toString(), respuestaSegText.getText().toString(), false, admin );
                 create(usuarioDto);
@@ -182,7 +191,7 @@ public class RegistroActivity extends AppCompatActivity {
                     return;
                 }
                 Usuario usuario = response.body();
-                Toast.makeText(getApplicationContext(), "El cliente " + usuario.getName() + " ha sido creado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "El usuario " + usuario.getName() + " ha sido creado", Toast.LENGTH_SHORT).show();
                 callMain();
             }
             @Override
@@ -198,7 +207,27 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     private boolean buttonEnabled(){
-        return nameText.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && passwordText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
+        return nameText.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && apellido2Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && passwordText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
+    }
+
+    private CharSequence getClickableSpan() {
+        String text = "Al crear su usuario, acepta la política de privacidad.";
+        SpannableString spannableString = new SpannableString(text);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getApplicationContext(), PoliticaDatosActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        // Enlazar la frase "política de privacidad"
+        int startIndex = text.indexOf("política de privacidad");
+        int endIndex = startIndex + "política de privacidad".length();
+        spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spannableString;
     }
     /*
     private String hashPassword(String password) {

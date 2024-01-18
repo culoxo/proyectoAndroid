@@ -12,92 +12,112 @@
         android:id="@+id/Usuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Usuario">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Usuario"></EditText>
+
     <EditText
         android:id="@+id/NameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Nombre">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Nombre"></EditText>
+
     <EditText
         android:id="@+id/Apellido1Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Apellido 1 ">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Apellido 1 "></EditText>
+
     <EditText
         android:id="@+id/Apellido2Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Apellido 2">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Apellido 2"></EditText>
+
     <EditText
         android:id="@+id/EmailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Email">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Email"></EditText>
+
     <EditText
         android:id="@+id/PasswordText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:inputType="textPassword"
-        android:hint="Password">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Password"
+        android:inputType="textPassword"></EditText>
+
     <EditText
         android:id="@+id/PreguntaSegText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Pregunta de seguridad">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Pregunta de seguridad"></EditText>
+
     <EditText
         android:id="@+id/RespuestaSegText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Respuesta de seguridad">
-    </EditText>
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Respuesta de seguridad"></EditText>
+
     <CheckBox
         android:id="@+id/activoBox"
         android:layout_width="99dp"
-        android:layout_height="63dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="3dp"
         android:text="Activo"
         android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/passwordAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:ems="10"
+        android:hint="Contraseña para ser admin" />
+
+    <TextView
+        android:id="@+id/aclaracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/red"
+        android:text=" * Todos los campos son obligatorios" />
+
     <Button
         android:id="@+id/createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="3dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/baseline_add_24_white"
         android:text="Create"
-        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:drawableLeft="@drawable/baseline_add_24_white">
-    </Button>
+        android:textColor="@color/white"></Button>
+
     <Button
-        android:id="@+id/volverButton"
+        android:id="@+id/boton_Volver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="3dp"
+        android:drawableLeft="@drawable/baseline_arrow_back_24_white"
         android:text="Volver"
-        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:drawableLeft="@drawable/baseline_arrow_back_24_white">
-    </Button>
+        android:textColor="@color/white"></Button>
 </LinearLayout>

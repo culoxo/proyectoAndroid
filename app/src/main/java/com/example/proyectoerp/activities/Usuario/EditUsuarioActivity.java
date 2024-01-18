@@ -10,12 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
-import com.example.proyectoerp.activities.Cliente.DetailClienteActivity;
 import com.example.proyectoerp.dto.UsuarioDTO;
 import com.example.proyectoerp.model.Usuario;
 
@@ -69,7 +67,7 @@ public class EditUsuarioActivity extends AppCompatActivity {
         respuestaSegText.setText(respuestaSeg);
         activoBox = findViewById(R.id.activoBox);
         editButton = findViewById(R.id.editButton);
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         activoBox.setChecked(activo);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override

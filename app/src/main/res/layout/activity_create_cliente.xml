@@ -61,7 +61,7 @@
         android:drawableLeft="@drawable/baseline_add_24_white">
     </Button>
     <Button
-        android:id="@+id/volverButton"
+        android:id="@+id/boton_Volver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

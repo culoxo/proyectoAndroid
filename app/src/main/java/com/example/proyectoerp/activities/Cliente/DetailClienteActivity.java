@@ -10,13 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.Interfaces.DeleteInterface;
-import com.example.proyectoerp.MainActivity;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.fragments.DeleteFragment;
 import com.example.proyectoerp.model.Cliente;
 import com.example.proyectoerp.model.Servicio;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,7 +48,7 @@ public class DetailClienteActivity extends AppCompatActivity implements DeleteIn
         telefono = findViewById(R.id.telefono);
         nameText = findViewById(R.id.nameText);
         activoText = findViewById(R.id.activo);
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         serviciosText = findViewById(R.id.serviciosText);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override

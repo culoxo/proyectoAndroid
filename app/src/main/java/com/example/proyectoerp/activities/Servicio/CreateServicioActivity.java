@@ -38,7 +38,7 @@ public class CreateServicioActivity extends AppCompatActivity {
         nameText = findViewById(R.id.nameText);
         activoBox = findViewById(R.id.activoBox);
         createButton = findViewById(R.id.createButton);
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.Interfaces.DeleteInterface;
-import com.example.proyectoerp.MainActivity;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.fragments.DeleteFragment;
 import com.example.proyectoerp.model.Usuario;
@@ -42,7 +41,7 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
         surname2Text = findViewById(R.id.surname2Text);
         nameText = findViewById(R.id.nameText);
         activoText = findViewById(R.id.activo);
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

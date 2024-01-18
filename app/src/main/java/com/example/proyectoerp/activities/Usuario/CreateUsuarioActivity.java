@@ -4,20 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.proyectoerp.Interfaces.CRUDInterface;
-import com.example.proyectoerp.MainActivity;
+import com.example.proyectoerp.PoliticaDatosActivity;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.dto.UsuarioDTO;
 import com.example.proyectoerp.model.Usuario;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreateUsuarioActivity extends AppCompatActivity {
 
-    EditText usuarioText, nameText,apellido1Text,apellido2Text,emailText, passwordText, preguntaSegText, respuestaSegText;
+    EditText usuarioText, nameText,apellido1Text,apellido2Text,emailText, passwordText, preguntaSegText, respuestaSegText, passwordAdmin;
     Button createButton, volverButton;
     CRUDInterface crudInterface;
     CheckBox activoBox;
@@ -51,7 +53,9 @@ public class CreateUsuarioActivity extends AppCompatActivity {
         respuestaSegText = findViewById(R.id.RespuestaSegText);
         activoBox = findViewById(R.id.activoBox);
         createButton = findViewById(R.id.createButton);
-        volverButton = findViewById(R.id.volverButton);
+        passwordAdmin = findViewById(R.id.passwordAdmin);
+        volverButton = findViewById(R.id.boton_Volver);
+
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +165,7 @@ public class CreateUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (usuarioText.getText().toString().endsWith("admin")) {
+                if (passwordAdmin.getText().toString().equals("anicia")) {
                     admin = true;
                 };
        //     String pass = hashPassword(passwordText.getText().toString());
@@ -207,25 +211,4 @@ public class CreateUsuarioActivity extends AppCompatActivity {
     private boolean buttonEnabled(){
         return nameText.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && apellido1Text.getText().toString().trim().length()>0 && emailText.getText().toString().trim().length()>0 && passwordText.getText().toString().trim().length()>0 && preguntaSegText.getText().toString().trim().length()>0 && respuestaSegText.getText().toString().trim().length()>0;
     }
-/*
-    private String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
-
-            // Convierte el hash a una representación hexadecimal
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 }

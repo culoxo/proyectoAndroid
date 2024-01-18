@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
-import com.example.proyectoerp.adapters.ServicioAdapter;
 import com.example.proyectoerp.dto.ClienteDTO;
 import com.example.proyectoerp.model.Cliente;
 import com.example.proyectoerp.model.Servicio;
@@ -74,7 +72,7 @@ public class EditClienteActivity extends AppCompatActivity {
         emailText.setText(email);
         telefono.setText(telefonoString);
         editButton = findViewById(R.id.editButton);
-        volverButton = findViewById(R.id.volverButton);
+        volverButton = findViewById(R.id.boton_Volver);
         activoBox.setChecked(activo);
         serviciosText= findViewById(R.id.serviciosText);
         volverButton.setOnClickListener(new View.OnClickListener() {
