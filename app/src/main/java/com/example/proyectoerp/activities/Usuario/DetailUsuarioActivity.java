@@ -49,7 +49,6 @@ public class DetailUsuarioActivity extends AppCompatActivity implements DeleteIn
             }
         });
         id = getIntent().getExtras().getLong("id");
-        Toast.makeText(DetailUsuarioActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         editButton = findViewById(R.id.editButton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

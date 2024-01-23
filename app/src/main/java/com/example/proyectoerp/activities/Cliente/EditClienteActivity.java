@@ -33,11 +33,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EditClienteActivity extends AppCompatActivity {
 
     Cliente cliente;
+    List<Servicio>AllServicios;
     List<Servicio> servicios;
-    EditText nameText;
-    EditText direccionText;
-    EditText emailText;
-    EditText telefono;
+    List<Servicio> ServiciosContratados = new ArrayList<>();
+    TextView nameText, direccionText, emailText, telefono;
     CRUDInterface crudInterface;
     Button editButton, volverButton;
     Long id;
@@ -49,6 +48,7 @@ public class EditClienteActivity extends AppCompatActivity {
     Boolean activo, soyAdmin;
     Spinner serviciosSpinner;
     TextView serviciosText;
+    Servicio ServiciosContratado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class EditClienteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_cliente);
         soyAdmin = getIntent().getBooleanExtra("soyAdmin", false);
         id = getIntent().getExtras().getLong("id");
-        Toast.makeText(this, "Id: " + id, Toast.LENGTH_SHORT).show();
+
         nombre= getIntent().getExtras().getString("nombre");
         direccion= getIntent().getExtras().getString("direccion");
         email = getIntent().getExtras().getString("email");
@@ -75,6 +75,10 @@ public class EditClienteActivity extends AppCompatActivity {
         volverButton = findViewById(R.id.boton_Volver);
         activoBox.setChecked(activo);
         serviciosText= findViewById(R.id.serviciosText);
+        serviciosSpinner= findViewById(R.id.serviciosSpinner);
+        getAllServicios();
+        getOne(id);
+
         volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,15 +145,20 @@ public class EditClienteActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClienteDTO clienteDto = new ClienteDTO(id, nameText.getText().toString(), direccionText.getText().toString(), emailText.getText().toString(), telefono.getText().toString(), activoBox.isChecked());
+                // Crear el objeto ClienteDTO con la información actualizada
+                ClienteDTO clienteDto = new ClienteDTO(
+                        id,
+                        nameText.getText().toString(),
+                        direccionText.getText().toString(),
+                        emailText.getText().toString(),
+                        telefono.getText().toString(),
+                        activoBox.isChecked()
+                );
                 edit(clienteDto);
             }
         });
-        getOne(id);
-        getAllServicios();
-        serviciosSpinner = findViewById(R.id.serviciosSpinner);
-
     }
+
 
     private void getOne(Long id){
         Retrofit retrofit = new Retrofit.Builder()
@@ -168,6 +177,7 @@ public class EditClienteActivity extends AppCompatActivity {
                 cliente = response.body();
                 //Muestra la lista de servicios
                 mostrarServicios(cliente.getServicios());
+
             }
             @Override
             public void onFailure(Call<Cliente> call, Throwable t) {
@@ -183,6 +193,7 @@ public class EditClienteActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         crudInterface = retrofit.create(CRUDInterface.class);
+
         Call<Cliente> call = crudInterface.editCliente(id, clienteDto);
         call.enqueue(new Callback<Cliente>() {
             @Override
@@ -226,7 +237,9 @@ public class EditClienteActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Servicio>> call, Response<List<Servicio>> response) {
                 if(response.isSuccessful()){
+                    AllServicios = new ArrayList<>(response.body());
                     mostrarServiciosDisponibles(response.body());
+
                 }
             }
 
@@ -261,9 +274,9 @@ public class EditClienteActivity extends AppCompatActivity {
 
         for (Servicio servicio : servicios) {
             serviciosStr.append(servicio.getNombre()).append("\n");
-        }
+
 
         serviciosText.setText(serviciosStr.toString());
+        }
     }
-
 }

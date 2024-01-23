@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                     boolean usuarioEncontrado = false;
 
                     for (Usuario usuario : usuarios) {
-                        Toast.makeText(MainActivity.this, "admin " + usuario.getAdmin(), Toast.LENGTH_SHORT).show();
                         usuarioEncontrado = true;
                             callMenu(usuario);
                             break;  // Termina el bucle ya que se encontró un usuario

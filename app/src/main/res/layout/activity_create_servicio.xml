@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Cliente.CreateClienteActivity"
+    tools:context=".activities.Servicio.CreateServicioActivity"
     android:background="#817CE6F4"
     android:orientation="vertical">
 

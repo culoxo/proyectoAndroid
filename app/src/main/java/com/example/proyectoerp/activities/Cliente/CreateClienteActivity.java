@@ -18,6 +18,10 @@ import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.dto.ClienteDTO;
 import com.example.proyectoerp.model.Cliente;
+import com.example.proyectoerp.model.Servicio;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +39,7 @@ public class CreateClienteActivity extends AppCompatActivity {
     CRUDInterface crudInterface;
     CheckBox activoBox;
     Boolean soyAdmin;
+    List<Servicio> servicios = new ArrayList<>();
 
     // Flag para indicar si se ha dejado de editar el campo de teléfono
     boolean telefonoEditado = false;
@@ -146,7 +151,7 @@ public class CreateClienteActivity extends AppCompatActivity {
             showTelefonoInvalidoAlert();
         } else {
             // Si el número de teléfono es correcto, proceder con la llamada al servidor
-            ClienteDTO clienteDto = new ClienteDTO(nameText.getText().toString(), direccionText.getText().toString(), emailText.getText().toString(), telefonoText, activoBox.isChecked());
+            ClienteDTO clienteDto = new ClienteDTO(nameText.getText().toString(), direccionText.getText().toString(), emailText.getText().toString(), telefonoText, activoBox.isChecked(), servicios);
             create(clienteDto);
         }
     }

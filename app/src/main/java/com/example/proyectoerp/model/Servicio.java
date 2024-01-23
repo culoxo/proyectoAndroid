@@ -2,7 +2,8 @@ package com.example.proyectoerp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Servicio {
+
+public class Servicio  {
 
     @SerializedName("id")
     private Long servicioId;

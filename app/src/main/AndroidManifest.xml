@@ -28,6 +28,9 @@
             android:name=".activities.RecuperarActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.Factura.CreateFacturaActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.Factura.DetailFacturaActivity"
             android:exported="false" />
         <activity

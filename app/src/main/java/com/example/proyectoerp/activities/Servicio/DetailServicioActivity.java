@@ -25,7 +25,6 @@ public class DetailServicioActivity extends AppCompatActivity implements DeleteI
     Servicio servicio;
     TextView activoText;
     TextView nameText;
-
     CRUDInterface crudInterface;
     Button deleteButton;
     Button editButton, volverButton;

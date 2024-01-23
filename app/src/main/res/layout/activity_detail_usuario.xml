@@ -12,9 +12,10 @@ tools:context=".activities.Usuario.DetailUsuarioActivity">
         android:id="@+id/activos"
         android:layout_width="90dp"
         android:layout_height="43dp"
-        android:gravity="center"
         android:text="Activo"
-        android:textStyle="italic"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -22,9 +23,10 @@ tools:context=".activities.Usuario.DetailUsuarioActivity">
         android:id="@+id/usuario"
         android:layout_width="90dp"
         android:layout_height="43dp"
-        android:gravity="center"
         android:text="Usuario"
-        android:textStyle="italic"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,8 +35,9 @@ tools:context=".activities.Usuario.DetailUsuarioActivity">
         android:layout_width="90dp"
         android:layout_height="43dp"
         android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         android:text="Email"
-        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/apellido2" />
 
@@ -42,9 +45,10 @@ tools:context=".activities.Usuario.DetailUsuarioActivity">
         android:id="@+id/apellido"
         android:layout_width="90dp"
         android:layout_height="43dp"
-        android:gravity="center"
         android:text="Apellido 1"
-        android:textStyle="italic"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
@@ -52,72 +56,84 @@ tools:context=".activities.Usuario.DetailUsuarioActivity">
         android:id="@+id/apellido2"
         android:layout_width="90dp"
         android:layout_height="43dp"
-        android:gravity="center"
         android:text="Apellido 2"
-        android:textStyle="italic"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/apellido" />
 
-    <EditText
+    <TextView
         android:id="@+id/usernameText"
         android:layout_width="297dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
-
+        android:gravity="center"
+        android:textSize="20sp"
         android:hint="Usuario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/usuario"
-        app:layout_constraintTop_toTopOf="parent"></EditText>
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/nameText"
         android:layout_width="297dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         android:hint="Nombre"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/nombre"
-        app:layout_constraintTop_toBottomOf="@+id/usernameText"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/usernameText"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/surnameText"
         android:layout_width="297dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         android:hint="Apellido 1"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/apellido"
-        app:layout_constraintTop_toBottomOf="@+id/nameText"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/nameText"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/surname2Text"
         android:layout_width="297dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         android:hint="Apellido 2"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/apellido2"
-        app:layout_constraintTop_toBottomOf="@+id/surnameText"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/surnameText"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/emailText"
         android:layout_width="297dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         android:hint="Email Cliente"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/surname2Text"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/surname2Text"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/activo"
         android:layout_width="297dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:textSize="20sp"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toEndOf="@+id/activos"
-        app:layout_constraintTop_toBottomOf="@+id/emailText"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/emailText"></TextView>
 
 <Button
     android:id="@+id/editButton"
@@ -164,8 +180,9 @@ tools:context=".activities.Usuario.DetailUsuarioActivity">
         android:layout_width="90dp"
         android:layout_height="43dp"
         android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         android:text="Nombre"
-        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usuario" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,9 +68,9 @@ Boolean soyAdmin;
                     System.out.println(response.message());
                     return;
                 }
-                Log.d("Server Response", response.body().toString());
+
                 servicios = response.body();
-                // Log para verificar si los objetos Cliente tienen sus identificadores
+                // Log para verificar si los objetos Servicio tienen sus identificadores
                 for (Servicio servicio : servicios) {
                     Log.d("Servicio ID", String.valueOf(servicio.getServicioId()));
                 }

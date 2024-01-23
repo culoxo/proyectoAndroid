@@ -20,13 +20,8 @@ import com.example.proyectoerp.Interfaces.CRUDInterface;
 import com.example.proyectoerp.MainActivity;
 import com.example.proyectoerp.PoliticaDatosActivity;
 import com.example.proyectoerp.R;
-import com.example.proyectoerp.activities.Usuario.UsuarioMainActivity;
 import com.example.proyectoerp.dto.UsuarioDTO;
 import com.example.proyectoerp.model.Usuario;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

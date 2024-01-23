@@ -1,11 +1,13 @@
 package com.example.proyectoerp.dto;
 
 import com.example.proyectoerp.model.Servicio;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class ClienteDTO {
 
+    @SerializedName("id")
     private Long clienteId;
     private String nombre;
     private String direccion;
@@ -50,7 +52,7 @@ public class ClienteDTO {
         this.telefono = telefono;
         this.active = active;
     }
-
+/*
     public ClienteDTO(String nombre, String direccion, String email, String telefono, boolean active) {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -58,7 +60,7 @@ public class ClienteDTO {
         this.telefono = telefono;
         this.active = active ;
     }
-
+*/
     public Long getClienteId() {
         return clienteId;
     }

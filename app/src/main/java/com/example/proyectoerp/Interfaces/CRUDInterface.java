@@ -1,9 +1,11 @@
 package com.example.proyectoerp.Interfaces;
 
 import com.example.proyectoerp.dto.ClienteDTO;
+import com.example.proyectoerp.dto.FacturaDTO;
 import com.example.proyectoerp.dto.ServicioDTO;
 import com.example.proyectoerp.dto.UsuarioDTO;
 import com.example.proyectoerp.model.Cliente;
+import com.example.proyectoerp.model.Factura;
 import com.example.proyectoerp.model.Servicio;
 import com.example.proyectoerp.model.Usuario;
 
@@ -70,4 +72,21 @@ public interface CRUDInterface {
 
     @DELETE("api/v1/usuarios/{id}")
     Call<Usuario> deleteUsuario(@Path("id") Long id);
+
+
+
+    @GET("api/v1/factura")
+    Call<List<Factura>> getAllFacturas();
+    @GET("api/v1/factura/{id}")
+    Call<Factura> getOneFactura(@Path("id") Long id);
+
+    @POST("api/v1/factura")
+    Call<Factura> createFactura(@Body FacturaDTO facturaDto);
+
+    @PUT("api/v1/factura/{id}")
+    Call<Factura> editFactura(@Path("id") Long id, @Body FacturaDTO facturaDTO);
+
+    @DELETE("api/v1/factura/{id}")
+    Call<Factura> deleteFactura(@Path("id") Long id);
+
 }

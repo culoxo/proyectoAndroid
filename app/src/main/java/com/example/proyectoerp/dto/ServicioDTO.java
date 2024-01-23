@@ -1,7 +1,10 @@
 package com.example.proyectoerp.dto;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ServicioDTO {
 
+    @SerializedName("id")
     private Long servicioId;
     private String nombre;
     private boolean active = true;

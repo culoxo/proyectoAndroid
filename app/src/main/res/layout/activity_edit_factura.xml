@@ -7,4 +7,74 @@
     android:background="#817CE6F4"
     tools:context=".activities.Factura.EditFacturaActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="90dp"
+            android:layout_height="43dp"
+            android:text="Estado"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="297dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="24dp"
+            android:gravity="center"
+            android:hint="Id Factura"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <CheckBox
+            android:id="@+id/activoBox"
+            android:layout_width="297dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="43dp"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/nameText" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:drawableLeft="@drawable/baseline_edit_24_white"
+            android:text="Editar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.458"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activoBox"></Button>
+
+
+        <Button
+            android:id="@+id/boton_Volver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:drawableLeft="@drawable/baseline_arrow_back_24_white"
+            android:text="Volver"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.462"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editButton" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="90dp"
+            android:layout_height="53dp"
+            android:gravity="center"
+            android:text="Num. Factura"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
