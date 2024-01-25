@@ -71,7 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:layout_marginLeft="10dp"
-        android:hint="Respuesta de seguridad"></EditText>
+        android:hint="Respuesta de seguridad"
+        android:inputType="textPassword"></EditText>
 
     <CheckBox
         android:id="@+id/activoBox"
@@ -97,7 +98,8 @@
         android:layout_margin="3dp"
         android:layout_marginLeft="10dp"
         android:ems="10"
-        android:hint="Contraseña para ser admin" />
+        android:hint="Contraseña para ser admin"
+        android:inputType="textPassword"/>
 
 
 

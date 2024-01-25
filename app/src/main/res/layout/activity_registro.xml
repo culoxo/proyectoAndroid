@@ -70,7 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:layout_marginLeft="10dp"
-        android:hint="Respuesta de seguridad">
+        android:hint="Respuesta de seguridad"
+        android:inputType="textPassword">
     </EditText>
 
     <CheckBox
@@ -79,21 +80,22 @@
         android:layout_height="wrap_content"
         android:text="Activo" />
 
-    <EditText
-        android:id="@+id/passwordAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Contraseña para ser admin" />
-
-
     <TextView
         android:id="@+id/aclaracion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="@color/red"
-        android:text=" * Todos los campos son obligatorios" />
+        android:text=" * Todos los campos anteriores son obligatorios"
+        android:textColor="@color/red" />
+
+    <EditText
+        android:id="@+id/passwordAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Contraseña para ser admin"
+        android:inputType="textPassword"/>
+
 
     <TextView
         android:id="@+id/proteccionDatos"

@@ -61,7 +61,7 @@ public class CreateFacturaActivity extends AppCompatActivity {
         call.enqueue(new Callback<Factura>() {
             @Override
             public void onResponse(Call<Factura> call, Response<Factura> response) {
-                Toast.makeText(getApplicationContext(), "response.message()", Toast.LENGTH_LONG).show();
+
                 if (!response.isSuccessful()) {
                     System.out.println(response.message());
                     return;

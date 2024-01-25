@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.proyectoerp.R;
 import com.example.proyectoerp.activities.Factura.DetailFacturaActivity;
-import com.example.proyectoerp.activities.Servicio.DetailServicioActivity;
 import com.example.proyectoerp.model.Factura;
 
 import java.util.List;
